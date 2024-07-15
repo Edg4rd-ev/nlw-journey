@@ -34,7 +34,7 @@ async function create({
       ends_at,
       emails_to_invite,
       owner_name: 'Edgar Sá',
-      owner_email: 'priv4tedelta@gmail.com'
+      owner_email: 'neto.edgarsa@gmail.com'
     })
 
     return data
@@ -43,4 +43,21 @@ async function create({
   }
 }
 
-export const tripServer = { getById }
+async function update({
+  id,
+  destination,
+  starts_at,
+  ends_at
+}: Omit<TripDetails, 'is_confirmed'>) {
+  try {
+    await api.put(`/trips/${id}`, {
+      destination,
+      starts_at,
+      ends_at
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
+export const tripServer = { getById, create, update }
